@@ -1,73 +1,51 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+## Documentacion
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+# Requisitos previos
+  - Node.js (>= 20.x)
+  - npm o yarn
+  - PostgreSQL
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+# Cómo configurar y ejecutar el proyecto localmente.
 
-## Description
+1. Clonar el repositorio a la ruta deseada utilizando 'git clone':
+   $ git clone https://github.com/emymatista/graphql_crud.git
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+2. Instalar las dependencias necesarias utilizando 'npm install'.
 
-## Installation
+3. Para instalar las dependencias necesarias para poder utilizar GraphQL y typeORM se instala de la siguiente manera:
+   $ npm install pg graphql @nestjs/graphql @nestjs/apollo apollo-server-express @nestjs/typeorm typeorm
 
-```bash
-$ npm install
-```
+4. Una vez instaladas todas las dependencias y haber configurado la base de datos de manera correcta (Ver siguiente punto), ya puedes ejecutar el proyecto de manera local utilizado el siguiente comando:
+   $ npm run start:dev
 
-## Running the app
+5. Para poder entrar al playground de GraphQL, debe entrar en el navegador la siguiente ruta:
+   $ localhost:3000/graphql
 
-```bash
-# development
-$ npm run start
 
-# watch mode
-$ npm run start:dev
+# Cómo configurar la base de datos PostgreSQL.
 
-# production mode
-$ npm run start:prod
-```
+1. Para configurar PostgreSQL, primero debe tener instalado y configurado el PostrgreSQL y su instancia ya sea en una nube o local.
+   
+2. Debe crear una base de datos llamada 'User'.
 
-## Test
+3. Para configurar la base de datos dentro del proyecto, debe ir al archivo 'app.module.ts', y tener el siguiente codigo:
+   TypeOrmModule.forRoot({
+      type: 'postgres', 
+      host: 'localhost', // Si tiene postgres conectado a la nube, aqui va la direccion de la nube
+      port: 5432, // Default port
+      username: 'postgres',
+      password: '(Aqui va la contraseña del servidor)',
+      database: 'User',
+      entities: ['dist/**/*.entity.{ts,js}'],
+      synchronize: true, // Set to false in production
+    }),
 
-```bash
-# unit tests
-$ npm run test
+4. Debe ejecutar con el comando 'npm run start:dev' para asegurar si se conecta correctamente. No deberia dar ningun error si se configuro correctamente.
 
-# e2e tests
-$ npm run test:e2e
 
-# test coverage
-$ npm run test:cov
-```
+# Detalles sobre el pipeline de CI/CD.
 
-## Support
+Este proyecto utiliza GitHub Actions para manejar el pipeline de CI/CD. Aqui va el archivo 'ci-cd.yml' que fue utilizado:
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
 
-## Stay in touch
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
