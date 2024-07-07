@@ -9,10 +9,15 @@ export class UsersResolver {
   constructor(private readonly usersService: UsersService) {}
 
   @Mutation(() => User)
-  createUser(@Args('createUserInput') createUserInput: CreateUserInput) {
-    return this.usersService.create(createUserInput);
+  createUser(@Args('name') name: string, @Args('email') email: string) {
+    return this.usersService.createUser(name, email);
   }
 
+  @Query(() => [User])
+  async users() {
+    return this.usersService.findAll();
+  }
+  /*
   @Query(() => [User], { name: 'users' })
   findAll() {
     return this.usersService.findAll();
@@ -32,4 +37,5 @@ export class UsersResolver {
   removeUser(@Args('id', { type: () => Int }) id: number) {
     return this.usersService.remove(id);
   }
+  */
 }
