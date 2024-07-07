@@ -10,8 +10,18 @@ type User {
 
 type Query {
   users: [User!]!
+  user(id: String!): User
 }
 
 type Mutation {
   createUser(name: String!, email: String!): User!
+  updateUser(id: String!, updateUserInput: UpdateUserInput!): User!
+  deleteUser(id: String!): Boolean!
+}
+
+input UpdateUserInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  name: String!
+  email: String!
 }
