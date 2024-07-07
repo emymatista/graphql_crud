@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: graphql-app
+spec:
+  type: NodePort
+  ports:
+    - port: 3000
+      targetPort: 3000
+      nodePort: 30001 # Asegúrate de que este puerto esté disponible
+  selector:
+    app: graphql-app

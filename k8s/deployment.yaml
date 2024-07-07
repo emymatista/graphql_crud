@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: graphql-app
+  labels:
+    app: graphql-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: graphql-app
+  template:
+    metadata:
+      labels:
+        app: graphql-app
+    spec:
+      containers:
+        - name: graphql-app
+          image: emymatista/graphql_resolver:latest
+          ports:
+            - containerPort: 3000
